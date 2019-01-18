@@ -1,0 +1,27 @@
+@{
+    string pathScriptsMainCss = "/Scripts/main.css";
+    System.IO.FileInfo fiScriptsMainCss = new System.IO.FileInfo(Server.MapPath("~" + pathScriptsMainCss));
+    string fiScriptsMainCss_Href = pathScriptsMainCss + "?rev=" + fiScriptsMainCss.LastWriteTimeUtc.ToString("yyMMddHHmmss");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AdventureWorks</title>
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="@fiScriptsMainCss_Href" />
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1></h1>
+            <a id="loginButton" class="linkButton" href="/.auth/login/aad?post_login_redirect_url=/Home/Welcome.cshtml">Login</a>
+            <img id="imgLogoMain" src="/Content/Kudu.svg" />
+        </div>
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
