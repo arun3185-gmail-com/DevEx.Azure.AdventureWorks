@@ -1,1 +1,47 @@
+@{
+    string pathScriptsMainCss = "/Scripts/main.css";
+    System.IO.FileInfo fiScriptsMainCss = new System.IO.FileInfo(Server.MapPath("~" + pathScriptsMainCss));
+    string fiScriptsMainCss_Href = pathScriptsMainCss + "?rev=" + fiScriptsMainCss.LastWriteTimeUtc.ToString("yyMMddHHmmss");
 
+    if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("/Default.cshtml");
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AdventureWorks</title>
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link type="text/css" rel="stylesheet" href="@fiScriptsMainCss_Href" />
+    @RenderSection("HeadSection", required: false)
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span id="authInfo">
+                <span id="loginInfo">@System.Web.HttpContext.Current.User.Identity.Name</span>
+                &nbsp;
+                <a style="font-size: 10px; color: #796E65;" href="/.auth/logout?post_logout_redirect_uri=/Default.cshtml">Sign out</a>
+            </span>
+            <h1>AdventureWorks</h1>
+            <img id="imgLogoMain" src="/Content/Kudu.svg.svg" />
+        </div>
+        <hr />
+
+        <div class="navigation">
+            <br />
+            <dl>
+                <dt><a href="/Home/Welcome.cshtml" style="text-decoration: none;">Home</a></dt>                
+            </dl>
+        </div>
+
+        <div class="content">
+            @RenderBody()
+        </div>
+
+    </div>
+</body>
+</html>
